@@ -79,9 +79,7 @@ def check_payments():
             if tx['address'] == address['address']:
                 if 'hashes' in address:
                     if tx['txid'] in address['hashes']:
-                        print("Already confirmed")
-                        continue
-                    
+                        continue                    
                     address['hashes'].append(tx['txid'])
 
                 address['hashes'] = [tx['txid']]
@@ -136,7 +134,6 @@ def finalise_payment(payment,tx):
         resp = requests.post(url, json=data)
         if resp.status_code != 200:
             print(resp.text)
-
 
     # Send payout
     url = f"http://x:{HSD_API_KEY}@{HSD_IP}:12039"
