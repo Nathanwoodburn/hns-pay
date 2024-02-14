@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Account - HNS Pay</title>
+    <meta name="description" content="Accept payments via your HNS address">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/styles.min.css">
+</head>
+
+<body style="background: rgb(39,38,46);">
+    <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span class="bs-icon-md d-flex justify-content-center align-items-center me-2 bs-icon"><img src="/assets/img/favicon.png" width="100%"></span><span>HNS Pay</span></a><button class="navbar-toggler" data-bs-toggle="collapse"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
+    </nav>
+    <header class="bg-dark">
+        <div class="container pt-4 pt-xl-5">
+            <div class="row pt-5">
+                <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
+                    <div class="text-center">
+                        <h1 class="fw-bold">Account</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div style="max-width: 700px;margin: auto;margin-top: 100px;margin-bottom: 100px;">
+            <h4>How do you want to receive your payments?</h4>
+            <form method="post" action="/account/edit"><label class="form-label" for="name">Display Name</label><input class="form-control" type="text" placeholder="Your Name" value="{{name}}" name="name"><label class="form-label" for="payout" style="margin-top: 25px;">Payout Address</label><input class="form-control" type="text" name="payout" placeholder="hs1...." value="{{address}}"><label class="form-label" style="margin-top: 25px;" for="link">Payment link</label>
+                <div><span>https://pay.hns.au/p/</span><input class="form-control form-control-sm" type="text" name="link" value="{{link}}" placeholder="yourlink" style="display: inline;width: auto;"></div><input class="btn btn-primary" type="submit" value="Save">
+            </form>
+        </div>
+    </section>
+    <section>
+        <div style="max-width: 700px;margin: auto;margin-top: 100px;margin-bottom: 100px;">
+            <h4>Payment webhook</h4>
+            <p style="margin-bottom: 0px;">Webhook is a post request with the following json data format</p><code>{<br>"amount": 100,<br>"data":"inputtedData",<br>"tx":"hash_of_pending_payout",<br>"isEqual": True<br>}</code>
+            <p>- amount is the amount paid (not necessarily the amount asked).<br>- isEqual is a bool that indicates if the amount matches the requested amount</p>
+            <form method="post" action="/account/webhook" style="margin-top: 25px;"><label class="form-label" for="url">URL</label><input class="form-control" type="text" placeholder="https://yourdomain.com/hook" value="{{webhook}}" name="url"><input class="btn btn-primary" type="submit" value="Save" style="margin-top: 25px;"></form>
+        </div>
+    </section>
+    <section>
+        <div>{{payments|safe}}</div>
+    </section>
+    <footer class="bg-dark">
+        <div class="container py-4 py-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Services</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="https://hnshosting.au" target="_blank">Web Hosting</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">About</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="https://nathan.woodburn.au" target="_blank">Nathan.Woodburn/</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
+                    <div class="fw-bold d-flex align-items-center mb-2"><span>HNS Pay</span></div>
+                    <p class="text-muted">Accept payments using HNS</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © {{year}} HNS Pay</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/script.min.js"></script>
+</body>
+
+</html>
