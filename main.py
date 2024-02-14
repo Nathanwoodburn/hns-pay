@@ -86,7 +86,20 @@ def account():
     link = accounts.getAccountLink(account)
     webhook = accounts.getAccountWebhook(account)
 
-    return render_template('account.html', account=account, address=address, link=link, name=name, webhook=webhook)
+
+    userPayments = payments.getUserPayments(account)
+    userPayments = [payment for payment in userPayments if payment['status'] == 'Confirmed']
+    paymentHTML = '<ul class="list-group" style="max-width: 700px;margin: auto;">'
+    for payment in userPayments:
+        paymentHTML += f'<li class="list-group-item"><span>{payment["amount"]} HNS'
+        if payment['data']:
+            paymentHTML += f' - {payment["data"]}'
+        paymentHTML += '</span></li>'
+
+    paymentHTML += '</ul>'
+
+
+    return render_template('account.html', account=account, address=address, link=link, name=name, webhook=webhook, payments=paymentHTML)
 
 @app.route('/account/edit', methods=['POST'])
 def payout():

@@ -77,6 +77,14 @@ def check_payments():
             continue
         for address in addresses:
             if tx['address'] == address['address']:
+                if 'hashes' in address:
+                    if tx['txid'] in address['hashes']:
+                        print("Already confirmed")
+                        continue
+                    
+                    address['hashes'].append(tx['txid'])
+
+                address['hashes'] = [tx['txid']]
                 address['status'] = 'Confirmed'
                 finalise_payment(address,tx)
 
@@ -98,11 +106,22 @@ def generateAddress():
     return resp.json()["address"]
     
 
+def getUserPayments(email):
+    # Get all payments for a user
+    with open('data/addresses.json', 'r') as f:
+        addresses = json.load(f)
+    userPayments = []
+    for address in addresses:
+        if address['email'] == email:
+            userPayments.append(address)
+    return userPayments
 
 
 def finalise_payment(payment,tx):
-    print(payment)
     # Send webhook
+    print("Finalising payment")
+    print(payment)
+    print(tx)
     email = payment['email']
     payout = accounts.getAccountAddress(email)
 
