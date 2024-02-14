@@ -1,6 +1,6 @@
 # HNS Pay
 
-HNS Pay is a simple payment gateway for Handshake domains. It allows you to accept payments in HNS for your products and services.
+HNS Pay is a simple payment gateway for HNS. It allows you to accept payments in HNS for your products and services.
 
 ## Deploying HNS Pay
 
