@@ -145,7 +145,6 @@ def getCookie(cookie):
     else:
         return False
 
-
 def hashPassword(password):
     # Hash a password
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')

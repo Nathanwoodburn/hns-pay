@@ -60,8 +60,8 @@ def check_payments():
         return False
     # Get last 20 transactions
     data = {
-        "method": "listtransactions",
-        "params": ["default", 20]
+        "method": "listhistory",
+        "params": ["default"]
     }
     
     resp = requests.post(url, json=data)
